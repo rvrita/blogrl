@@ -23,7 +23,7 @@ const Post = (props) => {
       <div className="post-byline"><span className="post-byline-author">{props.blog.author}</span> {moment(props.blog.createdAt).fromNow()}</div>
       <img src={props.blog.imageUrl} className="post-image" />
       {paragraphs.map((p, index) => {
-        return (<p key={index}>{markdownParser(p)}</p>)
+        return (<p key={index} dangerouslySetInnerHTML={{__html: markdownParser(p)}}/>)
       })}
     </div>
   )
