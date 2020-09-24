@@ -7,6 +7,7 @@ const blogSchema = new mongoose.Schema({
   author: String,
   imageUrl: String,
   body: String,
+  featured: Boolean,
   views: {type: Number, default: 0}
 }, 
   {

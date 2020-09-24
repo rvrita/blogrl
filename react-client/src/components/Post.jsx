@@ -1,19 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import $ from 'jquery';
-import markdownParser from '../../utils/markdownParser.js'
+import markdownParser from '../../utils/markdownParser.js';
 
 const Post = (props) => {
-  console.log(props.blog);
-  var blogId = props.blog._id;
-  $.ajax({
-    url: `/api/blogs/${blogId}`,
-    type: 'PATCH',
-    success: (res) => {
-      console.log(res);
-    }
-  })
-
   var article = props.blog.body;
   var paragraphs = article.split('\n\n');
 

@@ -26,6 +26,16 @@ app.patch('/api/blogs/:blogId', function (req, res) {
   var id = req.params.blogId;
   Blogs.where({ _id: id }).update({ $inc: { views: 1 } }, (err) => {
     if (err) {
+      console.log(err);
+    } else {
+      res.sendStatus(200);
+    }
+  })
+});
+
+app.post('/api/blogs/:blogId', function (req, res) {
+  Blogs.where({ _id: req.params.blogId }).update({ featured: req.body.featured }, (err) => {
+    if (err) {
       console.log(err)
     } else {
       res.sendStatus(200);
@@ -38,6 +48,7 @@ app.post('/api/blogs', function (req, res) {
     title: req.body.postTitle,
     author: req.body.author,
     imageUrl: req.body.imageUrl,
+    featured: false,
     body: req.body.postBody
   })
 

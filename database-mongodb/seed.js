@@ -12,6 +12,7 @@ for (let i = 0; i < 7; i += 1) {
   newPost.imageUrl = `images/${faker.random.arrayElement(photos)}`;
   newPost.createdAt = faker.date.past();
   newPost.body = faker.lorem.paragraphs(faker.random.number({ min: 3, max: 8 }),'\n\n');
+  newPost.featured = false;
   newPost.views = faker.random.number({ min: 100, max: 500 });
   samplePosts.push(newPost);
 }

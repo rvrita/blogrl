@@ -5,8 +5,9 @@ const Feed = (props) => (
   <div className="feed">
     <ul className="feed-list">
       {props.blogs.map((blog, index) => {
+        var featuredClass = blog.featured ? 'featured-post' : '';
         return (
-          <li className="feed-list-item" key={index}>
+          <li className={'feed-list-item ' + featuredClass} key={index}>
             <div className="feed-list-item-title" onClick={() => props.handleClick(blog._id)}>{blog.title}</div>
             <div className="feed-list-item-byline"><span className="feed-list-item-byline-author">{blog.author}</span> {moment(blog.createdAt).fromNow()}</div>
             <img src={blog.imageUrl} onClick={() => props.handleClick(blog._id)} className="feed-list-item-image" />

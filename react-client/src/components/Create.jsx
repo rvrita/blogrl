@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+import markdownParser from '../../utils/markdownParser.js';
 
 class Create extends React.Component {
   constructor(props) {
@@ -22,13 +24,15 @@ class Create extends React.Component {
   }
 
   render() {
+    var article = this.state.postBody;
+    var paragraphs = article.split('\n\n');
     return (
       <div className="create">
         <div className="create-editor">
           <h2>AUTHOR</h2>
           <form onSubmit={(e) => {
             e.preventDefault();
-            this.props.handleSubmit(this.state)
+            this.props.handleSubmit(this.state);
           }}>
             <input
               className="create-input"
@@ -62,6 +66,14 @@ class Create extends React.Component {
         </div>
         <div className="create-preview">
           <h2>PREVIEW</h2>
+          <div className="post">
+            <h1 className="post-title">{this.state.postTitle}</h1>
+            <div className="post-byline"><span className="post-byline-author">{this.state.author}</span></div>
+            <img src={this.state.imageUrl} className="post-image" />
+            {paragraphs.map((p, index) => {
+              return (<p key={index} dangerouslySetInnerHTML={{ __html: markdownParser(p) }} />)
+            })}
+          </div>
         </div>
       </div>
     )
