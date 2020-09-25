@@ -152,9 +152,7 @@ body {
 /* post stats styling start */
 
 .stats {
-  font-weight: 300;
   text-align: center;
-  letter-spacing: 1px;
 }
 
 .stat-table {
@@ -254,8 +252,16 @@ body {
 
 /* create post styling end */
 
-
-
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid lightgray;
+  margin: 10px 0 15px;
+  border-radius: 5px;
+  font-family: 'Raleway', sans-serif;
+  box-sizing: border-box;
+  outline: none;
+}
 
 
 

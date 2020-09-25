@@ -2,10 +2,26 @@ import React from 'react';
 import moment from 'moment';
 
 class Admin extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      searchField: ''
+    }
+    this.updateInputValue = this.updateInputValue.bind(this);
+  }
+
+  updateInputValue(e) {
+    var value = e.target.value;
+    this.setState ({
+      searchField: value
+    }, () => console.log(this.state));
+  }
+
   render() {
     return (
       <div>
-        <h2 className="stats">Stats</h2>
+        <h2 className="stats">STATS</h2>
+        <input className="search-bar" placeholder="Filter by author" type="text" value={this.state.searchField} onChange={this.updateInputValue} />
         <table className="stat-table">
           <tr>
             <th>Title</th>
@@ -22,7 +38,7 @@ class Admin extends React.Component {
             </th>
             <th>Featured</th>
           </tr>
-          {this.props.blogs.map((blog, index) => {
+          {this.props.blogs.filter(blog => blog.author.toLowerCase().includes(this.state.searchField.toLowerCase())).map((blog, index) => {
             return (
               <tr className="post-list-entry" key={index}>
                 <td className="post-list-entry-title">{blog.title}</td>
