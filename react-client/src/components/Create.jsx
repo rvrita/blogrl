@@ -25,7 +25,9 @@ class Create extends React.Component {
 
   render() {
     var article = this.state.postBody;
-    var paragraphs = article.split('\n\n');
+    var paragraphs = article.split('\n').filter(p => p != '');
+    console.log('paragraphs', paragraphs);
+  
     return (
       <div className="create">
         <div className="create-editor">

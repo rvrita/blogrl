@@ -1,67 +1,50 @@
 import React from 'react';
 import moment from 'moment';
 
-// const Admin = (props) => {
-//   return (
-//     <div>
-//       <h2 className="stats">Stats</h2>
-//       <ul>
-//         {props.blogs.map((blog, index) => {
-//           return (
-//             <li className="post-list-entry" key={index}>
-//               <div className="post-list-entry-title">{blog.title}</div>
-//               <div className="post-list-entry-byline">{blog.author} {moment(blog.createdAt).fromNow()}</div>
-//               <div className="stats-list-item-views">Views: {blog.views}</div>
-//               <form>
-//                 <label>
-//                   Featured:
-//                     <input
-//                     name="isFeatured"
-//                     type="checkbox"
-//                     checked={blog.featured}
-//                     onChange={() => props.handleFeaturedChange(blog._id)} />
-//                 </label>
-//               </form>
-//             </li>
-//           )
-//         })}
-//       </ul>
-//     </div>
-//   )
-// }
-
 class Admin extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      checked: false
-    }
-  }
   render() {
     return (
       <div>
         <h2 className="stats">Stats</h2>
-        <ul>
+        <table className="stat-table">
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>
+              <button className="header-button" type="button" onClick={() => this.props.sortByOnClick('createdAt')}>
+                Date
+              </button>
+            </th>
+            <th>
+              <button className="header-button" type="button" onClick={() => this.props.sortByOnClick('views')}>
+                Views
+              </button>
+            </th>
+            <th>Featured</th>
+          </tr>
           {this.props.blogs.map((blog, index) => {
             return (
-              <li className="post-list-entry" key={index}>
-                <div className="post-list-entry-title">{blog.title}</div>
-                <div className="post-list-entry-byline">{blog.author} {moment(blog.createdAt).fromNow()}</div>
-                <div className="stats-list-item-views">Views: {blog.views}</div>
-                <form>
-                  <label>
-                    Featured:
-                    <input
-                      name="featured"
-                      type="checkbox"
-                      checked={blog.featured}
-                      onChange={() => this.props.handleFeaturedChange(blog._id)} />
-                  </label>
-                </form>
-              </li>
+              <tr className="post-list-entry" key={index}>
+                <td className="post-list-entry-title">{blog.title}</td>
+                <td className="post-list-entry-byline">{blog.author}</td>
+                <td>{moment(blog.createdAt).fromNow()}</td>
+                <td className="stats-list-item-views">{blog.views}</td>
+                <td>
+                  <form>
+                    <label>
+                      Featured:
+                      <input
+                        name="featured"
+                        type="checkbox"
+                        checked={blog.featured}
+                        onChange={() => this.props.handleFeaturedChange(blog._id)} />
+                    </label>
+                  </form>
+                </td>
+              </tr>
             )
           })}
-        </ul>
+        </table>
       </div>
     )
   }
