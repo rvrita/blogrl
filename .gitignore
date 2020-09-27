@@ -1,4 +1,4 @@
 bundle.js
 .DS_Store
 node_modules
-images
+react-client/dist/images

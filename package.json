@@ -28,8 +28,10 @@
     "moment": "^2.27.0",
     "mongoose": "^4.11.6",
     "mysql": "^2.14.1",
+    "path": "^0.12.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router-dom": "^5.2.0",
     "underscore": "^1.8.3"
   }
 }

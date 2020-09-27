@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import { BrowserRouter, Route, NavLink, Switch, Link } from "react-router-dom";
 
 import Post from './components/Post.jsx';
 import Feed from './components/Feed.jsx';
@@ -13,17 +14,11 @@ class App extends React.Component {
     this.state = {
       view: 'feed',
       blogs: [],
-      currentBlog: null,
-      sortDirection: -1,
-      sortBy: ''
-    }
-    
+    };
+
     this.getPosts = this.getPosts.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.changeView = this.changeView.bind(this);
     this.handleFeaturedChange = this.handleFeaturedChange.bind(this);
-    this.handlePostClick = this.handlePostClick.bind(this);
-    this.sortByOnClick = this.sortByOnClick.bind(this);
   }
 
   getPosts() {
@@ -33,7 +28,6 @@ class App extends React.Component {
       success: blogs => {
         this.setState({
           blogs: blogs,
-          // currentBlog: blogs[0]
         }, () => console.log('state', this.state))
       }
     })
@@ -49,49 +43,6 @@ class App extends React.Component {
       type: 'POST',
       data: postData
     }).always(() => this.getPosts());
-  }
-
-  changeView(option) {
-    this.setState({
-      view: option
-    });
-  }
-
-  sortByOnClick(column) {
-    const newBlogs = this.state.blogs.slice();
-    let sortDir = this.state.sortDirection;
-    if (column === this.state.sortBy) {
-      sortDir *= -1; // same column, toggle sort direction
-    } else {
-      sortDir = 1;   // new column, reset sort direction
-    }
-    newBlogs.sort(function (a, b) {
-      if (a[column] > b[column]) {
-        return 1 * sortDir;
-      }
-      if (a[column] < b[column]) {
-        return -1 * sortDir;
-      }
-      return 0;
-    });
-    this.setState({
-      blogs: newBlogs,
-      sortDirection: sortDir,
-      sortBy: column
-    });
-  }
-
-  handlePostClick(id) {
-    $.ajax({
-      url: `/api/blogs/${id}`,
-      type: 'PATCH',
-      success: (res) => {
-        console.log(res);
-      }
-    }).always(() => this.getPosts());
-    this.setState({
-      currentBlog: this.state.blogs.find(b => b._id === id)
-    }, () => this.changeView('anypostview'));
   }
 
   handleFeaturedChange(id) {
@@ -112,53 +63,51 @@ class App extends React.Component {
     }).always(() => this.getPosts());
   }
 
-  renderView() {
-    const { view } = this.state;
-    if (view === 'feed') {
-      return <Feed handleClick={this.handlePostClick} blogs={this.state.blogs} />
-    } else if (view === 'admin') {
-      return <Admin sortByOnClick={this.sortByOnClick} handleFeaturedChange={this.handleFeaturedChange} blogs={this.state.blogs} />
-    } else if (view === 'create') {
-      return <Create handleSubmit={this.handleSubmit} />
-    } else {
-      return <Post blog={this.state.currentBlog} />
-    }
-  }
-
   render() {
     return (
-      <div>
-        <div className="logo">
-          <h1>BLOGRL.</h1>
-          <p>Full Stack Blog Site Project</p>
+      <BrowserRouter>
+        <div>
+          <Link className="logo" to="/">
+            <h1>BLOGRL.</h1>
+            <p>Full Stack Blog Site Project</p>
+          </Link>
+          <nav className="nav">
+            <NavLink exact to="/" className="nav-unselected" activeClassName="nav-selected">
+              SEE ALL POSTS
+            </NavLink>
+            <NavLink to="/create" className="nav-unselected" activeClassName="nav-selected">
+              WRITE A POST
+            </NavLink>
+            <NavLink to="/admin" className="nav-unselected" activeClassName="nav-selected">
+              ADMIN
+            </NavLink>
+          </nav>
+          <div className="main-image">
+            <img src="/images/mainImagev2.jpg" />
+          </div>
+          <div className="main">
+            <Switch>
+              <Route exact path="/">
+                <Feed blogs={this.state.blogs} />
+              </Route>
+              <Route path="/create">
+                <Create handleSubmit={this.handleSubmit} />
+              </Route>
+              <Route path="/admin">
+                <Admin
+                  getPosts={this.getPosts}
+                  handleFeaturedChange={this.handleFeaturedChange}
+                  blogs={this.state.blogs} />
+              </Route>
+              <Route path="/article/:id" render={({ match }) =>
+                this.state.blogs.length === 0 ?
+                  <h2>Loading...</h2> :
+                  <Post blog={this.state.blogs.find(blog => blog._id === match.params.id)} />
+              } />
+            </Switch>
+          </div>
         </div>
-        <div className="nav">
-          <span className={this.state.view === 'feed'
-            ? 'nav-selected'
-            : 'nav-unselected'}
-            onClick={() => this.changeView('feed')}>
-            SEE ALL POSTS
-          </span>
-          <span className={this.state.view === 'create'
-            ? 'nav-selected'
-            : 'nav-unselected'}
-            onClick={() => this.changeView('create')}>
-            WRITE A POST
-          </span>
-          <span className={this.state.view === 'admin'
-            ? 'nav-selected'
-            : 'nav-unselected'}
-            onClick={() => this.changeView('admin')}>
-            ADMIN
-          </span>
-        </div>
-        <div className="main-image">
-          <img src="images/mainImagev2.jpg" />
-        </div>
-        <div className="main">
-          {this.renderView()}
-        </div>
-      </div>
+      </BrowserRouter>
     );
   }
 }

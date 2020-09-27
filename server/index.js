@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const Blogs = require('../database-mongodb/Blog.js');
 
@@ -59,6 +60,10 @@ app.post('/api/blogs', function (req, res) {
       res.send('data saved');
     }
   })
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../react-client/dist/index.html'));
 });
 
 app.listen(PORT, () => {

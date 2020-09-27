@@ -13,6 +13,7 @@ body {
   text-align: center;
   font-family: 'Raleway', sans-serif;
   color:#7c746d;
+  text-decoration: none;
 }
 
 .logo h1 {
@@ -28,6 +29,7 @@ body {
 }
 
 .nav {
+  list-style-type: none;
   background-color: #fde7e6;
   margin: 0px;
   padding: 10px;
@@ -38,12 +40,26 @@ body {
   font-family: 'Raleway', sans-serif;
 }
 
+.nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .nav-selected,
 .nav-unselected {
-  padding: 5px;
+  padding: 5px 10px;
   margin-right: 20px;
   font-size: 1.1em;
   cursor: pointer;
+  border-radius: 3px;
+}
+
+.nav-selected {
+  background-color: white;
+}
+
+.nav-unselected:hover {
+  background-color: white;
 }
 
 /* header styling end */
@@ -81,6 +97,11 @@ body {
   box-sizing: border-box;
   border-radius: 5px;
   margin-bottom: 5px;
+}
+
+.feed-list-item a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .feed-list-item-image {
