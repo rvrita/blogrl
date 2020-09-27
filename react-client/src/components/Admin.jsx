@@ -47,8 +47,10 @@ class Admin extends React.Component {
     return (
       <div>
         <h2 className="stats">STATS</h2>
-        <input className="search-bar" placeholder="Filter by author" type="text" value={this.state.searchField} onChange={this.updateInputValue} />
-        <button onClick={() => this.props.getPosts()}>Refresh</button>
+        <div className="stats-nav">
+          <button className="refresh-button" onClick={() => this.props.getPosts()}>Refresh</button>
+          <input className="search-bar" placeholder="Filter by author" type="text" value={this.state.searchField} onChange={this.updateInputValue} />
+        </div>
         <table className="stat-table">
           <tbody>
           <tr>

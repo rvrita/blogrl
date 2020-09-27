@@ -210,16 +210,34 @@ body {
 
 /* create post styling start */
 
-.create-submit-button {
+
+
+.create-submit-button,
+.refresh-button {
   cursor: pointer;
   border: none;
   border-radius: 3px;
   font-family: 'Raleway', sans-serif;
   color: #7c746d;
   background-color: #fde7e6;
+}
+
+.create-submit-button {
+  margin-bottom: 60px;
   padding: 10px 15px;
   font-size: 1.2em;
-  margin-bottom: 60px;
+}
+
+.refresh-button {
+  width: 11%;
+  letter-spacing: 0.5px;
+  outline: none;
+}
+
+.stats-nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 15px;
 }
 
 .header-button {
@@ -274,47 +292,12 @@ body {
 /* create post styling end */
 
 .search-bar {
-  width: 100%;
+  width: 88%;
   padding: 10px;
   border: 1px solid lightgray;
-  margin: 10px 0 15px;
+  
   border-radius: 5px;
   font-family: 'Raleway', sans-serif;
   box-sizing: border-box;
   outline: none;
 }
-
-
-
-
-
-
-.comment-input {
-  width: 60%;
-  font-size: .9em;
-  margin-top: 15px;
-  border: none;
-  padding: 5px;
-  resize: none;
-}
-
-.comment-submit {
-  margin-left: 15px;
-  font-size: .9em;
-  height: 30px;
-  transform: translateY(-50%);
-}
-
-.comment-entry {
-  margin-top: 5px;
-  padding: 10px;
-  border: 1px solid #3498DB;
-  list-style: none;
-  width: 70%;
-  font-size: .9em;
-}
-
-.comment-entry:hover {
-  background-color: rgba(52, 152, 219, 0.17);
-}
-
